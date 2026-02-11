@@ -4,73 +4,150 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login | LUMIEARN</title>
-  <meta name="description"
-        content="Lumiearn | Your one stop solution to the world of financial oportunities. Join our thousands of people making real money online.">
-<!-- OPEN GRAPH / SOCIAL PREVIEW -->
-<meta property="og:title" content="Create Account | LUMIEARN">
-<meta property="og:description" content="Lumiearn | Your one stop solution to the world of financial oportunities. Join our thousands of people making real money online.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://lumiearn.vercel.app/register.html">
-<meta property="og:image" content="https://lumiearn.vercel.app/logo.png?v=2">
 
-<!-- TWITTER / X CARD -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Create Account | LUMIEARN">
-<meta name="twitter:description" content="Lumiearn | Your one stop solution to the world of financial oportunities. Join our thousands of people making real money online.">
-<meta name="twitter:image" content="https://lumiearn.vercel.app/logo.png?v=2">
+<meta name="description"
+content="Lumiearn | Your one stop solution to the world of financial opportunities.">
 
-<!-- Orbitron Font -->
+<!-- Social Preview -->
+<meta property="og:image" content="https://lumiearn.vercel.app/logo.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-html, body{margin:0;padding:0;height:100%;}
+html,body{margin:0;padding:0;height:100%;}
 body{
-  font-family:'Orbitron', sans-serif;
+  font-family:'Orbitron',sans-serif;
   background:#0a0a0f;
-  color:#fff;
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:20px;
+  color:#fff;
 }
+
+/* Card */
 .login-card{
   background:#111118;
-  max-width:400px;
   width:100%;
-  border-radius:16px;
-  padding:34px 30px;
-  box-shadow:0 0 20px rgba(0,255,240,0.25);
+  max-width:420px;
+  padding:35px 30px;
+  border-radius:18px;
+  box-shadow:0 0 25px rgba(0,255,240,.25);
 }
-.login-card h1{text-align:center;color:#00fff0;font-size:32px;margin-bottom:12px;}
-.login-card p{text-align:center;color:#0ff;opacity:.8;margin-bottom:20px;}
+
+/* Logo */
+.logo{
+  text-align:center;
+  margin-bottom:15px;
+}
+.logo img{
+  width:120px;
+  animation:glowLogo 2s ease-in-out infinite alternate;
+}
+@keyframes glowLogo{
+  from{filter:drop-shadow(0 0 5px #00fff0);}
+  to{filter:drop-shadow(0 0 20px #00fff0); transform:scale(1.05);}
+}
+
+.title{
+  text-align:center;
+  font-size:26px;
+  color:#00fff0;
+  margin-bottom:5px;
+}
+.subtitle{
+  text-align:center;
+  font-size:13px;
+  opacity:.7;
+  margin-bottom:20px;
+}
+
+/* Inputs */
 .form-group{margin-bottom:18px;}
-label{font-size:14px;font-weight:600;margin-bottom:8px;display:block;color:#0ff;}
+label{font-size:13px;color:#0ff;margin-bottom:6px;display:block;}
 .input-box{position:relative;}
-.input-box i.left-icon{position:absolute;top:50%;left:16px;transform:translateY(-50%);font-size:16px;color:#0ff;pointer-events:none;}
-.input-box .toggle-password{position:absolute;right:16px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:16px;color:#0ff;}
-.input-box input{width:100%;height:54px;padding-left:44px;padding-right:44px;font-size:15px;border-radius:14px;border:1px solid rgba(0,255,240,.4);background:transparent;color:#fff;box-sizing:border-box;}
-.input-box input:focus{outline:none;border-color:#0ff;box-shadow:0 0 12px rgba(0,255,240,.35);}
-.btn{width:100%;height:54px;font-size:16px;font-weight:700;border:none;border-radius:16px;background:#00fff0;color:#0a0a0f;cursor:pointer;transition:.3s;}
-.btn:hover{box-shadow:0 0 20px rgba(0,255,240,.6);}
-#alertBox{display:none;margin-top:12px;padding:12px 16px;border-radius:12px;font-size:14px;font-weight:500;text-align:center;}
-.login-link{margin-top:20px;text-align:center;font-size:14px;}
-.login-link a{color:#00fff0;font-weight:700;text-decoration:none;}
+.input-box i{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  color:#0ff;
+}
+.left-icon{left:14px;}
+.toggle-password{right:14px;cursor:pointer;}
+input{
+  width:100%;
+  height:50px;
+  padding:0 40px;
+  border-radius:12px;
+  border:1px solid rgba(0,255,240,.4);
+  background:transparent;
+  color:#fff;
+}
+input:focus{
+  outline:none;
+  border-color:#0ff;
+  box-shadow:0 0 10px rgba(0,255,240,.4);
+}
+
+/* Button */
+.btn{
+  width:100%;
+  height:52px;
+  border:none;
+  border-radius:14px;
+  background:#00fff0;
+  font-weight:700;
+  cursor:pointer;
+  transition:.3s;
+}
+.btn:hover{
+  box-shadow:0 0 20px rgba(0,255,240,.6);
+}
+
+/* Alert */
+#alertBox{
+  display:none;
+  margin-bottom:15px;
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+  font-size:13px;
+}
+
+/* Link */
+.register-link{
+  margin-top:15px;
+  text-align:center;
+  font-size:13px;
+}
+.register-link a{
+  color:#00fff0;
+  text-decoration:none;
+  font-weight:bold;
+}
 </style>
 </head>
+
 <body>
 
 <div class="login-card">
-  <h1>LUMIEARN | Login</h1>
-  <p>Enter your credentials to continue</p>
+
+  <div class="logo">
+    <img src="https://lumiearn.vercel.app/logo.png" alt="LUMIEARN Logo">
+  </div>
+
+  <div class="title">LUMIEARN</div>
+  <div class="subtitle">Secure Member Login</div>
+
   <div id="alertBox"></div>
-  
+
   <form id="loginForm">
+
     <div class="form-group">
       <label>Username or Email</label>
       <div class="input-box">
         <i class="fa-solid fa-user left-icon"></i>
-        <input type="text" id="usernameEmail" placeholder="Username or Email" required>
+        <input type="text" id="usernameEmail" required>
       </div>
     </div>
 
@@ -78,81 +155,102 @@ label{font-size:14px;font-weight:600;margin-bottom:8px;display:block;color:#0ff;
       <label>Password</label>
       <div class="input-box">
         <i class="fa-solid fa-lock left-icon"></i>
-        <input type="password" id="passwordInput" placeholder="Enter password" required>
+        <input type="password" id="passwordInput" required>
         <i class="fa-solid fa-eye toggle-password"></i>
       </div>
     </div>
 
     <button class="btn" type="submit">Login</button>
+
   </form>
 
-  <div class="login-link">
+  <div class="register-link">
     Don't have an account? <a href="register.html">Register</a>
   </div>
+
 </div>
 
 <script>
-// Password toggle
+
+/* ===== Launch Protection ===== */
+const launchDate = new Date(2026, 1, 9, 13, 30, 0).getTime();
+if(Date.now() < launchDate && !window.location.pathname.includes("countdown.html")){
+  window.location.href="countdown.html";
+}
+
+/* ===== Auto Login Redirect ===== */
+const activeSession = JSON.parse(localStorage.getItem("LOGGED_IN_USER"));
+if(activeSession){
+  if(activeSession.user.paid){
+    window.location.href="dashboard.html";
+  } else {
+    window.location.href="payment.html";
+  }
+}
+
+/* ===== Password Toggle ===== */
 document.querySelectorAll(".toggle-password").forEach(icon=>{
   icon.onclick=()=>{
-    const input = icon.previousElementSibling;
-    input.type = input.type==="password"?"text":"password";
+    const input=icon.previousElementSibling;
+    input.type=input.type==="password"?"text":"password";
     icon.classList.toggle("fa-eye-slash");
   };
 });
 
-// Login logic
-const form = document.getElementById("loginForm");
-const userInput = document.getElementById("usernameEmail");
-const passwordInput = document.getElementById("passwordInput");
-const alertBox = document.getElementById("alertBox");
+/* ===== Login Logic ===== */
+const form=document.getElementById("loginForm");
+const alertBox=document.getElementById("alertBox");
 
-form.addEventListener("submit", e=>{
+form.addEventListener("submit",e=>{
   e.preventDefault();
 
-  alertBox.style.display="none";
+  const u=document.getElementById("usernameEmail").value.trim().toLowerCase();
+  const p=document.getElementById("passwordInput").value;
 
-  const u = userInput.value.trim().toLowerCase();
-  const p = passwordInput.value;
+  let foundUser=null;
 
-  let foundUser = null;
-
-  for(let i = 0; i < localStorage.length; i++){
-    const key = localStorage.key(i);
+  for(let i=0;i<localStorage.length;i++){
+    const key=localStorage.key(i);
     if(key.startsWith("LUMIEARN_USER_")){
-      const user = JSON.parse(localStorage.getItem(key));
+      const user=JSON.parse(localStorage.getItem(key));
       if(user.username.toLowerCase()===u || user.email.toLowerCase()===u){
-        foundUser = user;
+        foundUser=user;
         break;
       }
     }
   }
 
   if(!foundUser){
-    alertBox.style.display="block";
-    alertBox.innerText="User not found";
-    return;
+    return showAlert("User not found","error");
   }
 
-  if(foundUser.password !== p){
-    alertBox.style.display="block";
-    alertBox.innerText="Incorrect password";
-    return;
+  if(foundUser.password!==p){
+    return showAlert("Incorrect password","error");
   }
 
-  // Save session
-  localStorage.setItem("LOGGED_IN_USER", JSON.stringify({
-    user: foundUser,
-    loginTime: Date.now()
+  localStorage.setItem("LOGGED_IN_USER",JSON.stringify({
+    user:foundUser,
+    loginTime:Date.now()
   }));
 
-  alertBox.style.display="block";
-  alertBox.innerText="Login successful! Redirecting...";
+  showAlert("Login successful...","success");
 
   setTimeout(()=>{
-    window.location.href="payment.html";
+    if(foundUser.paid){
+      window.location.href="dashboard.html";
+    } else {
+      window.location.href="payment.html";
+    }
   },1000);
 });
+
+function showAlert(msg,type){
+  alertBox.style.display="block";
+  alertBox.innerText=msg;
+  alertBox.style.background=type==="error"?"#ff4d4d":"#0ff";
+  alertBox.style.color=type==="error"?"#fff":"#000";
+}
+
 </script>
 
 </body>
