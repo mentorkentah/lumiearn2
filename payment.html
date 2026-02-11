@@ -3,55 +3,201 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Make Payment | LUMIEARN</title>
+<title>Activate Account | LUMIEARN</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
 <style>
-body{margin:0;padding:0;font-family:'Orbitron',sans-serif;background:#0a0a0f;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;}
-.card{background:#111118;padding:30px 25px;border-radius:16px;text-align:center;max-width:400px;width:100%;box-shadow:0 0 20px rgba(0,255,240,0.25);}
-h2{color:#0ff;margin-bottom:12px;}
-p{margin-bottom:20px;color:#fff;}
-.amount, .phone{font-size:22px;font-weight:700;margin:8px 0;color:#00fff0;}
-button{background:#00fff0;color:#0a0a0f;border:none;padding:12px 25px;font-size:16px;border-radius:12px;cursor:pointer;transition:.3s;}
-button:hover{box-shadow:0 0 15px rgba(0,255,240,0.5);}
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#0a3f99,#0050ff);
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.pay-card{
+  background:#fff;
+  width:360px;
+  max-width:92%;
+  padding:25px 20px;
+  border-radius:16px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.3);
+  text-align:center;
+}
+
+.logo{
+  width:220px;
+  margin-bottom:10px;
+}
+
+h2{
+  margin:10px 0 5px;
+  color:#0050ff;
+}
+
+.sub{
+  font-size:13px;
+  color:#333;
+  margin-bottom:15px;
+}
+
+.amount-box{
+  background:#e6f0ff;
+  border:2px dashed #0050ff;
+  border-radius:12px;
+  padding:15px;
+  margin:15px 0;
+}
+
+.amount-box span{
+  display:block;
+  font-size:14px;
+  color:#333;
+}
+
+.amount{
+  font-size:26px;
+  font-weight:bold;
+  color:#0050ff;
+}
+
+.phone{
+  font-size:14px;
+  margin-top:6px;
+  color:#333;
+}
+
+.notice{
+  background:#fff3cd;
+  color:#856404;
+  font-size:12px;
+  padding:10px;
+  border-radius:10px;
+  margin-bottom:15px;
+  font-weight:bold;
+  text-align:left;
+}
+
+.btn{
+  width:100%;
+  height:45px;
+  border:none;
+  border-radius:12px;
+  background:#0050ff;
+  color:#fff;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.btn:hover{
+  background:#003bb5;
+}
+
+.secure{
+  margin-top:12px;
+  font-size:12px;
+  color:#555;
+}
+
+.secure i{
+  color:#0050ff;
+  margin-right:5px;
+}
+
+.loading{
+  display:none;
+  margin-top:10px;
+  font-size:13px;
+  font-weight:bold;
+  color:#0050ff;
+}
 </style>
 </head>
 <body>
-<div class="card">
-  <h2>Complete Your Payment</h2>
-  <p>Send the amount below to your registered number</p>
-  <div class="amount" id="amount">0</div>
-  <div class="phone" id="phone">+000000000</div>
-  <p>Once paid, click the button below to confirm.</p>
-  <button id="paidBtn"><i class="fa-solid fa-check"></i> I Paid</button>
+
+<div class="pay-card">
+  <img src="https://lumiearn.vercel.app/logo.png" class="logo" alt="LUMIEARN">
+
+  <h2>Activate Your Account</h2>
+  <p class="sub">Send the amount below to complete activation</p>
+
+  <div class="amount-box">
+    <span>Activation Fee</span>
+    <div class="amount" id="activationAmount">KES 0</div>
+    <div class="phone" id="paymentPhone">+000000000</div>
+  </div>
+
+  <div class="notice">
+    • One-time payment<br>
+    • Unlocks full dashboard<br>
+    • Referral commission credited instantly
+  </div>
+
+  <button class="btn" onclick="processPayment()">
+    <i class="fa-solid fa-lock"></i> I Have Paid
+  </button>
+
+  <div class="loading" id="loadingText">
+    Processing payment, please wait...
+  </div>
+
+  <div class="secure">
+    <i class="fa-solid fa-shield-halved"></i> Secure payment confirmation
+  </div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded",()=>{
+/* ===== AUTH CHECK ===== */
+const username = localStorage.getItem("LUMIEARN_LOGGED_IN");
 
-  const username = localStorage.getItem("LUMIEARN_LOGGED_IN");
-  if(!username) location.href="login.html";
+if(!username){
+  window.location.href = "login.html";
+  throw new Error("Not logged in");
+}
 
-  // Read stored payment info
-  const amount = localStorage.getItem("PAYMENT_AMOUNT") || 0;
-  const phone = localStorage.getItem("PAYMENT_PHONE") || "+000000000";
+const userKey = "LUMIEARN_USER_" + username.toLowerCase();
+const userData = JSON.parse(localStorage.getItem(userKey));
 
-  document.getElementById("amount").textContent = amount;
-  document.getElementById("phone").textContent = phone;
+if(!userData){
+  window.location.href = "login.html";
+  throw new Error("User not found");
+}
 
-  // Handle "I Paid" button
-  document.getElementById("paidBtn").addEventListener("click",()=>{
-    // Mark user as paid
-    const userDataKey = "LUMIEARN_USER_"+username.toLowerCase();
-    const userData = JSON.parse(localStorage.getItem(userDataKey));
-    if(userData){
-      userData.paid = true;
-      localStorage.setItem(userDataKey, JSON.stringify(userData));
-      alert("Payment confirmed! Redirecting to dashboard...");
-      location.href="dashboard.html";
-    }
-  });
+if(userData.paid === true){
+  window.location.href = "dashboard.html";
+  throw new Error("Already activated");
+}
 
-});
+/* ===== GET PAYMENT DATA FROM REGISTRATION ===== */
+const amount = localStorage.getItem("PAYMENT_AMOUNT") || "0";
+const phone = localStorage.getItem("PAYMENT_PHONE") || "+000000000";
+
+document.getElementById("activationAmount").textContent = "KES " + amount;
+document.getElementById("paymentPhone").textContent = phone;
+
+/* ===== PAYMENT PROCESS ===== */
+function processPayment(){
+
+  const loading = document.getElementById("loadingText");
+  loading.style.display = "block";
+
+  setTimeout(() => {
+
+    userData.paid = true;
+    userData.activatedAt = new Date().toISOString();
+
+    localStorage.setItem(userKey, JSON.stringify(userData));
+
+    alert("Payment confirmed! Account activated.");
+    window.location.href = "dashboard.html";
+
+  }, 1500);
+}
 </script>
+
 </body>
 </html>
