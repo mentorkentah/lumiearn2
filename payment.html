@@ -5,189 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Activate Account | LUMIEARN</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
 <style>
-html,body{
-  margin:0;
-  padding:0;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg,#0a3f99,#0050ff);
-  font-family:Arial, Helvetica, sans-serif;
-}
-
-.pay-card{
-  background:#fff;
-  width:360px;
-  max-width:92%;
-  padding:25px 20px;
-  border-radius:16px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.3);
-  text-align:center;
-}
-
-.logo{
-  width:220px;
-  margin-bottom:10px;
-}
-
-h2{
-  margin:10px 0 5px;
-  color:#0050ff;
-}
-
-.sub{
-  font-size:13px;
-  color:#333;
-  margin-bottom:15px;
-}
-
-.amount-box{
-  background:#e6f0ff;
-  border:2px dashed #0050ff;
-  border-radius:12px;
-  padding:15px;
-  margin:15px 0;
-}
-
-.amount-box span{
-  display:block;
-  font-size:14px;
-  color:#333;
-}
-
-.amount{
-  font-size:26px;
-  font-weight:bold;
-  color:#0050ff;
-}
-
-.phone{
-  font-size:14px;
-  margin-top:6px;
-  color:#333;
-}
-
-.notice{
-  background:#fff3cd;
-  color:#856404;
-  font-size:12px;
-  padding:10px;
-  border-radius:10px;
-  margin-bottom:15px;
-  font-weight:bold;
-  text-align:left;
-}
-
-/* Payment method cards */
-.payment-methods{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  margin:15px 0;
-}
-
-.method-card{
-  flex:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#e6f0ff;
-  color:#0050ff;
-  border-radius:12px;
-  height:50px;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.method-card i{
-  margin-right:8px;
-  font-size:20px;
-}
-
-.method-card:hover{
-  background:#cce0ff;
-}
-
-/* Button */
-.btn{
-  width:100%;
-  height:45px;
-  border:none;
-  border-radius:12px;
-  background:#0050ff;
-  color:#fff;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:10px;
-}
-
-.btn:hover{
-  background:#003bb5;
-}
-
-.secure{
-  margin-top:12px;
-  font-size:12px;
-  color:#555;
-}
-
-.secure i{
-  color:#0050ff;
-  margin-right:5px;
-}
-
-.loading{
-  display:none;
-  margin-top:10px;
-  font-size:13px;
-  font-weight:bold;
-  color:#0050ff;
-}
-
-/* Modal */
-.modal{
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
-  z-index:9999;
-  justify-content:center;
-  align-items:center;
-}
-
-.modal-content{
-  background:#fff;
-  color:#000;
-  padding:20px;
-  border-radius:16px;
-  max-width:400px;
-  width:90%;
-  text-align:left;
-  position:relative;
-}
-
-.modal-content h3{
-  margin-top:0;
-  color:#0050ff;
-}
-
-.close-btn{
-  position:absolute;
-  top:10px;
-  right:15px;
-  font-size:18px;
-  cursor:pointer;
-  color:#0050ff;
-  font-weight:bold;
-}
+html,body{margin:0;padding:0;font-family:Arial, Helvetica, sans-serif;background:#f5f7fa;height:100%;display:flex;justify-content:center;align-items:center;}
+.pay-card{background:#fff;width:380px;padding:25px 20px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,0.3);text-align:center;}
+.logo{width:220px;margin-bottom:10px;}
+h2{margin:10px 0 5px;color:#0050ff;}
+.sub{font-size:13px;color:#333;margin-bottom:15px;}
+.amount-box{background:#e6f0ff;border:2px dashed #0050ff;border-radius:12px;padding:15px;margin:15px 0;}
+.amount-box span{display:block;font-size:14px;color:#333;}
+.amount{font-size:26px;font-weight:bold;color:#0050ff;}
+.phone{font-size:14px;margin-top:6px;color:#333;}
+.notice{background:#fff3cd;color:#856404;font-size:12px;padding:10px;border-radius:10px;margin-bottom:15px;font-weight:bold;text-align:left;}
+.payment-methods{display:flex;gap:12px;margin-bottom:15px;justify-content:center;}
+.method-btn{flex:1;padding:10px 0;background:#0050ff;color:#fff;font-weight:bold;border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.3s;}
+.method-btn:hover{background:#003bb5;}
+.btn{width:100%;height:45px;border:none;border-radius:12px;background:#0050ff;color:#fff;font-size:15px;font-weight:bold;cursor:pointer;margin-top:10px;}
+.btn:hover{background:#003bb5;}
+.secure{margin-top:12px;font-size:12px;color:#555;}
+.secure i{color:#0050ff;margin-right:5px;}
+.loading{display:none;margin-top:10px;font-size:13px;font-weight:bold;color:#0050ff;}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);justify-content:center;align-items:center;z-index:9999;padding:15px;box-sizing:border-box;}
+.modal-content{background:#fff;border-radius:16px;padding:20px;max-width:400px;width:100%;position:relative;text-align:left;}
+.modal-content h3{margin-top:0;color:#0050ff;}
+.modal-content p{font-size:14px;color:#333;line-height:1.5;}
+.modal-content a.pay-link{display:inline-block;margin-top:10px;padding:10px 15px;background:#0050ff;color:#fff;border-radius:12px;text-decoration:none;font-weight:bold;}
+.close-modal{position:absolute;top:12px;right:12px;font-size:18px;cursor:pointer;color:#0050ff;}
+.copy-btn{margin-left:6px;padding:2px 6px;font-size:12px;background:#0a0a0f;color:#fff;border:none;border-radius:6px;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -210,76 +53,47 @@ h2{
     • Referral commission credited instantly
   </div>
 
-  <!-- Payment method cards -->
   <div class="payment-methods">
-    <div class="method-card" onclick="openModal('mpesa')">
-      <i class="fa-solid fa-mobile-screen-button"></i> M-Pesa
-    </div>
-    <div class="method-card" onclick="openModal('airtel')">
-      <i class="fa-solid fa-mobile"></i> Airtel
-    </div>
+    <button class="method-btn" onclick="openModal('mpesa')"><i class="fa-brands fa-paypal"></i> M-Pesa</button>
+    <button class="method-btn" onclick="openModal('airtel')"><i class="fa-solid fa-mobile-screen-button"></i> Airtel</button>
   </div>
 
-  <button class="btn" onclick="processPayment()">
-    <i class="fa-solid fa-lock"></i> I Have Paid
-  </button>
+  <button class="btn" onclick="processPayment()"><i class="fa-solid fa-lock"></i> I Have Paid</button>
 
-  <div class="loading" id="loadingText">
-    Processing payment, please wait...
-  </div>
+  <div class="loading" id="loadingText">Processing payment, please wait...</div>
 
-  <div class="secure">
-    <i class="fa-solid fa-shield-halved"></i> Secure payment confirmation
-  </div>
+  <div class="secure"><i class="fa-solid fa-shield-halved"></i> Secure payment confirmation</div>
 </div>
 
-<!-- Modal -->
-<div class="modal" id="paymentModal">
-  <div class="modal-content" id="modalContent">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
     <div id="modalText"></div>
   </div>
 </div>
 
 <script>
-// User and payment info
-const countries = [
-  { name:'Kenya', code:'+254', currency:'KES' },
-  { name:'Uganda', code:'+256', currency:'UGX' },
-  { name:'Tanzania', code:'+255', currency:'TZS' },
-  { name:'United States', code:'+1', currency:'USD' },
-  { name:'Ghana', code:'+233', currency:'GHS' },
-  { name:'United Kingdom', code:'+44', currency:'GBP' }
-];
-
+// --- USERS + DYNAMIC DATA ---
 document.addEventListener("DOMContentLoaded", function(){
+
   const username = localStorage.getItem("LUMIEARN_LOGGED_IN");
   if(!username){ window.location.href="login.html"; return; }
 
   const userKey = "LUMIEARN_USER_" + username.toLowerCase();
   let userData = JSON.parse(localStorage.getItem(userKey));
-  if(!userData){ alert("User not found"); window.location.href="login.html"; return; }
-  if(userData.paid){ window.location.href="dashboard.html"; return; }
+  if(!userData){ alert("User account not found."); window.location.href="login.html"; return; }
 
-  function updatePaymentInfo(){
-    const amount = userData.capitalFee || 0;
-    const currency = userData.currency || "KES";
-    document.getElementById("activationAmount").textContent = currency + " " + amount;
-    document.getElementById("paymentPhone").textContent = userData.phone || "+000000000";
-  }
+  if(userData.paid===true){ window.location.href="dashboard.html"; return; }
 
-  updatePaymentInfo();
+  const amount = userData.capitalFee;
+  const phone = userData.phone;
+  document.getElementById("activationAmount").textContent = userData.currency+" "+amount;
+  document.getElementById("paymentPhone").textContent = phone;
 
-  window.addEventListener("storage", function(e){
-    if(e.key === userKey){
-      userData = JSON.parse(e.newValue);
-      updatePaymentInfo();
-    }
-  });
-
+  // --- PAYMENT PROCESS ---
   window.processPayment = function(){
     document.getElementById("loadingText").style.display="block";
-    setTimeout(function(){
+    setTimeout(()=>{
       userData.paid=true;
       userData.activatedAt=new Date().toISOString();
       localStorage.setItem(userKey, JSON.stringify(userData));
@@ -287,47 +101,51 @@ document.addEventListener("DOMContentLoaded", function(){
       window.location.href="dashboard.html";
     },1500);
   }
+
 });
 
-// Modal functions
-const modal = document.getElementById("paymentModal");
+// --- MODAL + COUNTRY PROCEDURES ---
+const modal = document.getElementById("modal");
 const modalText = document.getElementById("modalText");
 
-function openModal(provider){
-  let text = "";
-  const amount = document.getElementById("activationAmount").textContent;
-  const phone = document.getElementById("paymentPhone").textContent;
-
-  if(provider==="mpesa"){
-    text = `<h3>M-Pesa Payment Instructions</h3>
-            <p>1. Go to M-Pesa on your phone.</p>
-            <p>2. Select Pay Bill.</p>
-            <p>3. Enter Till Number: <strong>123456</strong></p>
-            <p>4. Enter Amount: <strong>${amount}</strong></p>
-            <p>5. Enter Account/Phone: <strong>${phone}</strong></p>
-            <p>6. Confirm and send.</p>`;
-  } else if(provider==="airtel"){
-    text = `<h3>Airtel Money Payment Instructions</h3>
-            <p>1. Go to Airtel Money on your phone.</p>
-            <p>2. Select Pay Bill.</p>
-            <p>3. Enter Till Number: <strong>654321</strong></p>
-            <p>4. Enter Amount: <strong>${amount}</strong></p>
-            <p>5. Enter Account/Phone: <strong>${phone}</strong></p>
-            <p>6. Confirm and send.</p>`;
+const paymentInstructions = {
+  "Kenya": {
+    mpesa:{procedure:`1. Open M-Pesa<br>2. Lipa na M-Pesa → Pay Bill<br>3. Business Number: <strong id="till">123456</strong> <button class="copy-btn" onclick="copyText('123456')">Copy</button><br>4. Amount: <strong>{amount}</strong><br>5. Account: <strong>{phone}</strong><br>6. Confirm and send`, link:"#MPESA_LINK"},
+    airtel:{procedure:`1. Open Airtel Money<br>2. Select Pay Bill<br>3. Till Number: <strong id="till">654321</strong> <button class="copy-btn" onclick="copyText('654321')">Copy</button><br>4. Amount: <strong>{amount}</strong><br>5. Account: <strong>{phone}</strong><br>6. Confirm and send`, link:"#AIRTEL_LINK"}
+  },
+  "Uganda": {
+    mpesa:{procedure:`1. Open MTN Mobile Money<br>2. Select Pay Bill<br>3. Business Number: <strong id="till">987654</strong> <button class="copy-btn" onclick="copyText('987654')">Copy</button><br>4. Amount: <strong>{amount}</strong><br>5. Account: <strong>{phone}</strong><br>6. Confirm and send`, link:"#UG_MPESA_LINK"},
+    airtel:{procedure:`1. Open Airtel Money<br>2. Select Pay Bill<br>3. Business Number: <strong id="till">456789</strong> <button class="copy-btn" onclick="copyText('456789')">Copy</button><br>4. Amount: <strong>{amount}</strong><br>5. Account: <strong>{phone}</strong><br>6. Confirm and send`, link:"#UG_AIRTEL_LINK"}
+  },
+  "Tanzania": {
+    mpesa:{procedure:`1. Open M-Pesa Tanzania<br>2. Select Pay Bill<br>3. Business Number: <strong id="till">111222</strong> <button class="copy-btn" onclick="copyText('111222')">Copy</button><br>4. Amount: <strong>{amount}</strong><br>5. Account: <strong>{phone}</strong><br>6. Confirm and send`, link:"#TZ_MPESA_LINK"},
+    airtel:{procedure:`1. Open Airtel Money Tanzania<br>2. Select Pay Bill<br>3. Till Number: <strong id="till">333444</strong> <button class="copy-btn" onclick="copyText('333444')">Copy</button><br>4. Amount: <strong>{amount}</strong><br>5. Account: <strong>{phone}</strong><br>6. Confirm and send`, link:"#TZ_AIRTEL_LINK"}
   }
+  // Add more countries as needed
+};
 
-  modalText.innerHTML = text;
-  modal.style.display = "flex";
+function openModal(provider){
+  const username = localStorage.getItem("LUMIEARN_LOGGED_IN");
+  const userKey = "LUMIEARN_USER_" + username.toLowerCase();
+  const userData = JSON.parse(localStorage.getItem(userKey));
+  const country = userData.country || "Kenya";
+  const amount = userData.capitalFee;
+  const phone = userData.phone;
+
+  const instructions = paymentInstructions[country][provider];
+  const procedure = instructions.procedure.replace("{amount}", amount).replace("{phone}", phone);
+
+  modalText.innerHTML = `<h3>${provider.toUpperCase()} Payment Instructions - ${country}</h3>
+                         <p>${procedure}</p>
+                         <a href="${instructions.link}" target="_blank" class="pay-link">Pay Now</a>`;
+  modal.style.display="flex";
 }
 
-function closeModal(){
-  modal.style.display="none";
-}
+function closeModal(){ modal.style.display="none"; }
 
-// Close modal if click outside content
-window.addEventListener("click", function(e){
-  if(e.target===modal) modal.style.display="none";
-});
+function copyText(txt){
+  navigator.clipboard.writeText(txt).then(()=>alert("Copied: "+txt));
+}
 </script>
 </body>
 </html>
