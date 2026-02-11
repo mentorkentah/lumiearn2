@@ -14,19 +14,18 @@ html,body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#0a0a0f,#0050ff);
-  font-family:'Orbitron', sans-serif;
+  background:linear-gradient(135deg,#0a3f99,#0050ff);
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 .pay-card{
-  background:#111118;
+  background:#fff;
   width:360px;
   max-width:92%;
   padding:25px 20px;
   border-radius:16px;
-  box-shadow:0 0 20px rgba(0,255,240,0.25);
+  box-shadow:0 8px 25px rgba(0,0,0,0.3);
   text-align:center;
-  color:#fff;
 }
 
 .logo{
@@ -36,18 +35,18 @@ html,body{
 
 h2{
   margin:10px 0 5px;
-  color:#00fff0;
+  color:#0050ff;
 }
 
 .sub{
   font-size:13px;
-  color:#0ff;
+  color:#333;
   margin-bottom:15px;
 }
 
 .amount-box{
-  background:rgba(0,255,240,0.05);
-  border:2px dashed #00fff0;
+  background:#e6f0ff;
+  border:2px dashed #0050ff;
   border-radius:12px;
   padding:15px;
   margin:15px 0;
@@ -56,24 +55,24 @@ h2{
 .amount-box span{
   display:block;
   font-size:14px;
-  color:#0ff;
+  color:#333;
 }
 
 .amount{
   font-size:26px;
   font-weight:bold;
-  color:#00fff0;
+  color:#0050ff;
 }
 
 .phone{
   font-size:14px;
   margin-top:6px;
-  color:#0ff;
+  color:#333;
 }
 
 .notice{
-  background:#0ff1;
-  color:#0ff;
+  background:#fff3cd;
+  color:#856404;
   font-size:12px;
   padding:10px;
   border-radius:10px;
@@ -87,25 +86,25 @@ h2{
   height:45px;
   border:none;
   border-radius:12px;
-  background:#00fff0;
-  color:#0a0a0f;
+  background:#0050ff;
+  color:#fff;
   font-size:15px;
   font-weight:bold;
   cursor:pointer;
 }
 
 .btn:hover{
-  box-shadow:0 0 20px rgba(0,255,240,.6);
+  background:#003bb5;
 }
 
 .secure{
   margin-top:12px;
   font-size:12px;
-  color:#0ff;
+  color:#555;
 }
 
 .secure i{
-  color:#00fff0;
+  color:#0050ff;
   margin-right:5px;
 }
 
@@ -114,7 +113,7 @@ h2{
   margin-top:10px;
   font-size:13px;
   font-weight:bold;
-  color:#0ff;
+  color:#0050ff;
 }
 </style>
 </head>
@@ -128,7 +127,7 @@ h2{
 
   <div class="amount-box">
     <span>Activation Fee</span>
-    <div class="amount" id="activationAmount">0</div>
+    <div class="amount" id="activationAmount">KES 0</div>
     <div class="phone" id="paymentPhone">+000000000</div>
   </div>
 
@@ -152,40 +151,48 @@ h2{
 </div>
 
 <script>
-// Countries reference (should match registration)
+// --------------- Payment Page Script ---------------
+
+// All countries (should match registration)
 const countries = [
-  { name:'Kenya', code:'+254', currency:'KES', capitalFee:300, paymentPhone:'0700000000' },
-  { name:'Uganda', code:'+256', currency:'UGX', capitalFee:18500, paymentPhone:'0770000000' },
-  { name:'Tanzania', code:'+255', currency:'TZS', capitalFee:14000, paymentPhone:'0650000000' },
-  { name:'United States', code:'+1', currency:'USD', capitalFee:8, paymentPhone:'+11234567890' },
-  { name:'Ghana', code:'+233', currency:'GHS', capitalFee:80, paymentPhone:'+233500000000' },
-  { name:'United Kingdom', code:'+44', currency:'GBP', capitalFee:40, paymentPhone:'+447000000000' }
+  { name:'Kenya', code:'+254', currency:'KES' },
+  { name:'Uganda', code:'+256', currency:'UGX' },
+  { name:'Tanzania', code:'+255', currency:'TZS' },
+  { name:'United States', code:'+1', currency:'USD' },
+  { name:'Ghana', code:'+233', currency:'GHS' },
+  { name:'United Kingdom', code:'+44', currency:'GBP' }
 ];
 
 document.addEventListener("DOMContentLoaded", function(){
 
-  // 1️⃣ Check login
+  // 1️⃣ Check if user is logged in
   const username = localStorage.getItem("LUMIEARN_LOGGED_IN");
   if(!username){ window.location.href = "login.html"; return; }
 
-  // 2️⃣ Load user
+  // 2️⃣ Load user data
   const userKey = "LUMIEARN_USER_" + username.toLowerCase();
   let userData = JSON.parse(localStorage.getItem(userKey));
-  if(!userData){ alert("User account not found."); window.location.href="login.html"; return; }
+
+  if(!userData){ 
+    alert("User account not found."); 
+    window.location.href="login.html"; 
+    return; 
+  }
 
   // 3️⃣ If already paid → dashboard
   if(userData.paid){ window.location.href="dashboard.html"; return; }
 
-  // 4️⃣ Find user's country and show dynamic fee + phone
+  // 4️⃣ Show activation fee and phone dynamically
   function updatePaymentInfo(){
-    const countryInfo = countries.find(c => c.name === userData.country) || countries[0];
-    document.getElementById("activationAmount").textContent = `${countryInfo.currency} ${countryInfo.capitalFee}`;
-    document.getElementById("paymentPhone").textContent = countryInfo.paymentPhone;
+    const amount = userData.capitalFee || 0;
+    const currency = userData.currency || "KES";
+    document.getElementById("activationAmount").textContent = currency + " " + amount;
+    document.getElementById("paymentPhone").textContent = userData.phone || "+000000000";
   }
 
-  updatePaymentInfo(); // Initial load
+  updatePaymentInfo();
 
-  // Optional: listen to changes in country in localStorage (if user changes profile later)
+  // Optional: If user changes country in profile later
   window.addEventListener("storage", function(e){
     if(e.key === userKey){
       userData = JSON.parse(e.newValue);
