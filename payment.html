@@ -151,52 +151,66 @@ h2{
 </div>
 
 <script>
-/* ===== AUTH CHECK ===== */
-const username = localStorage.getItem("LUMIEARN_LOGGED_IN");
+document.addEventListener("DOMContentLoaded", function(){
 
-if(!username){
-  window.location.href = "login.html";
-  throw new Error("Not logged in");
-}
+  // 1️⃣ Check if logged in
+  const username = localStorage.getItem("LUMIEARN_LOGGED_IN");
 
-const userKey = "LUMIEARN_USER_" + username.toLowerCase();
-const userData = JSON.parse(localStorage.getItem(userKey));
+  if(!username){
+    window.location.href = "login.html";
+    return;
+  }
 
-if(!userData){
-  window.location.href = "login.html";
-  throw new Error("User not found");
-}
+  // 2️⃣ Get user data
+  const userKey = "LUMIEARN_USER_" + username.toLowerCase();
+  let userData = JSON.parse(localStorage.getItem(userKey));
 
-if(userData.paid === true){
-  window.location.href = "dashboard.html";
-  throw new Error("Already activated");
-}
+  if(!userData){
+    alert("User account not found.");
+    window.location.href = "login.html";
+    return;
+  }
 
-/* ===== GET PAYMENT DATA FROM REGISTRATION ===== */
-const amount = localStorage.getItem("PAYMENT_AMOUNT") || "0";
-const phone = localStorage.getItem("PAYMENT_PHONE") || "+000000000";
-
-document.getElementById("activationAmount").textContent = "KES " + amount;
-document.getElementById("paymentPhone").textContent = phone;
-
-/* ===== PAYMENT PROCESS ===== */
-function processPayment(){
-
-  const loading = document.getElementById("loadingText");
-  loading.style.display = "block";
-
-  setTimeout(() => {
-
-    userData.paid = true;
-    userData.activatedAt = new Date().toISOString();
-
-    localStorage.setItem(userKey, JSON.stringify(userData));
-
-    alert("Payment confirmed! Account activated.");
+  // 3️⃣ If already paid → go to dashboard
+  if(userData.paid === true){
     window.location.href = "dashboard.html";
+    return;
+  }
 
-  }, 1500);
-}
+  // 4️⃣ Show payment amount + phone
+  const amount = localStorage.getItem("PAYMENT_AMOUNT") || "150";
+  const phone = localStorage.getItem("PAYMENT_PHONE") || "0700000000";
+
+  document.getElementById("activationAmount").textContent = "KES " + amount;
+
+  const phoneBox = document.getElementById("paymentPhone");
+  if(phoneBox){
+    phoneBox.textContent = phone;
+  }
+
+  // 5️⃣ Fake payment process
+  window.processPayment = function(){
+
+    document.getElementById("loadingText").style.display = "block";
+
+    setTimeout(function(){
+
+      userData.paid = true;
+      userData.activatedAt = new Date().toISOString();
+
+      // Save updated user
+      localStorage.setItem(userKey, JSON.stringify(userData));
+
+      alert("Payment successful! Redirecting...");
+
+      // Redirect to dashboard
+      window.location.href = "dashboard.html";
+
+    }, 1500);
+
+  }
+
+});
 </script>
 
 </body>
