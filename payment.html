@@ -14,57 +14,65 @@ html,body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#0a0a0f,#111118);
+  background:linear-gradient(135deg,#0a0a0f,#0050ff);
   font-family:'Orbitron', sans-serif;
-  color:#fff;
 }
+
 .pay-card{
   background:#111118;
   width:360px;
   max-width:92%;
   padding:25px 20px;
   border-radius:16px;
-  box-shadow:0 8px 25px rgba(0,255,240,0.3);
+  box-shadow:0 0 20px rgba(0,255,240,0.25);
   text-align:center;
+  color:#fff;
 }
+
 .logo{
   width:220px;
   margin-bottom:10px;
 }
+
 h2{
   margin:10px 0 5px;
   color:#00fff0;
 }
+
 .sub{
   font-size:13px;
-  color:#fff;
+  color:#0ff;
   margin-bottom:15px;
-  opacity:0.8;
 }
+
 .amount-box{
-  background:#0a0a1a;
+  background:rgba(0,255,240,0.05);
   border:2px dashed #00fff0;
   border-radius:12px;
   padding:15px;
   margin:15px 0;
 }
+
 .amount-box span{
   display:block;
   font-size:14px;
-  color:#fff;
+  color:#0ff;
 }
+
 .amount{
   font-size:26px;
   font-weight:bold;
   color:#00fff0;
 }
+
 .phone{
   font-size:14px;
   margin-top:6px;
-  color:#fff;
+  color:#0ff;
 }
+
 .notice{
-  background:#0a0a1a;
+  background:#0ff1;
   color:#0ff;
   font-size:12px;
   padding:10px;
@@ -73,6 +81,7 @@ h2{
   font-weight:bold;
   text-align:left;
 }
+
 .btn{
   width:100%;
   height:45px;
@@ -83,26 +92,29 @@ h2{
   font-size:15px;
   font-weight:bold;
   cursor:pointer;
-  transition:.3s;
 }
+
 .btn:hover{
   box-shadow:0 0 20px rgba(0,255,240,.6);
 }
+
 .secure{
   margin-top:12px;
   font-size:12px;
-  color:#fff;
+  color:#0ff;
 }
+
 .secure i{
   color:#00fff0;
   margin-right:5px;
 }
+
 .loading{
   display:none;
   margin-top:10px;
   font-size:13px;
   font-weight:bold;
-  color:#00fff0;
+  color:#0ff;
 }
 </style>
 </head>
@@ -116,7 +128,7 @@ h2{
 
   <div class="amount-box">
     <span>Activation Fee</span>
-    <div class="amount" id="activationAmount">KES 0</div>
+    <div class="amount" id="activationAmount">0</div>
     <div class="phone" id="paymentPhone">+000000000</div>
   </div>
 
@@ -126,7 +138,7 @@ h2{
     • Referral commission credited instantly
   </div>
 
-  <button class="btn" id="paidBtn">
+  <button class="btn" onclick="processPayment()">
     <i class="fa-solid fa-lock"></i> I Have Paid
   </button>
 
@@ -140,54 +152,61 @@ h2{
 </div>
 
 <script>
+// Countries reference (should match registration)
+const countries = [
+  { name:'Kenya', code:'+254', currency:'KES', capitalFee:300, paymentPhone:'0700000000' },
+  { name:'Uganda', code:'+256', currency:'UGX', capitalFee:18500, paymentPhone:'0770000000' },
+  { name:'Tanzania', code:'+255', currency:'TZS', capitalFee:14000, paymentPhone:'0650000000' },
+  { name:'United States', code:'+1', currency:'USD', capitalFee:8, paymentPhone:'+11234567890' },
+  { name:'Ghana', code:'+233', currency:'GHS', capitalFee:80, paymentPhone:'+233500000000' },
+  { name:'United Kingdom', code:'+44', currency:'GBP', capitalFee:40, paymentPhone:'+447000000000' }
+];
+
 document.addEventListener("DOMContentLoaded", function(){
 
-  // 1️⃣ Check if user is logged in
-  const loggedIn = localStorage.getItem("LUMIEARN_LOGGED_IN");
-  if(!loggedIn){
-    alert("You must log in first!");
-    window.location.href = "login.html";
-    return;
-  }
+  // 1️⃣ Check login
+  const username = localStorage.getItem("LUMIEARN_LOGGED_IN");
+  if(!username){ window.location.href = "login.html"; return; }
 
-  const username = JSON.parse(loggedIn).username;
+  // 2️⃣ Load user
   const userKey = "LUMIEARN_USER_" + username.toLowerCase();
-  const userData = JSON.parse(localStorage.getItem(userKey));
+  let userData = JSON.parse(localStorage.getItem(userKey));
+  if(!userData){ alert("User account not found."); window.location.href="login.html"; return; }
 
-  if(!userData){
-    alert("User account not found.");
-    localStorage.removeItem("LUMIEARN_LOGGED_IN");
-    window.location.href = "login.html";
-    return;
+  // 3️⃣ If already paid → dashboard
+  if(userData.paid){ window.location.href="dashboard.html"; return; }
+
+  // 4️⃣ Find user's country and show dynamic fee + phone
+  function updatePaymentInfo(){
+    const countryInfo = countries.find(c => c.name === userData.country) || countries[0];
+    document.getElementById("activationAmount").textContent = `${countryInfo.currency} ${countryInfo.capitalFee}`;
+    document.getElementById("paymentPhone").textContent = countryInfo.paymentPhone;
   }
 
-  // 2️⃣ If already paid → redirect to dashboard
-  if(userData.paid){
-    window.location.href = "dashboard.html";
-    return;
-  }
+  updatePaymentInfo(); // Initial load
 
-  // 3️⃣ Display payment amount & phone
-  document.getElementById("activationAmount").textContent = userData.currency + " " + userData.capitalFee;
-  document.getElementById("paymentPhone").textContent = userData.phone;
+  // Optional: listen to changes in country in localStorage (if user changes profile later)
+  window.addEventListener("storage", function(e){
+    if(e.key === userKey){
+      userData = JSON.parse(e.newValue);
+      updatePaymentInfo();
+    }
+  });
 
-  // 4️⃣ Handle fake payment
-  document.getElementById("paidBtn").addEventListener("click", function(){
-    const loading = document.getElementById("loadingText");
-    loading.style.display = "block";
+  // 5️⃣ Payment simulation
+  window.processPayment = function(){
+    document.getElementById("loadingText").style.display = "block";
 
     setTimeout(function(){
       userData.paid = true;
       userData.activatedAt = new Date().toISOString();
       localStorage.setItem(userKey, JSON.stringify(userData));
-
-      alert("Payment successful! Redirecting to dashboard...");
+      alert("Payment successful! Redirecting...");
       window.location.href = "dashboard.html";
-    }, 1500);
-  });
+    },1500);
+  }
 
 });
 </script>
-
 </body>
 </html>
