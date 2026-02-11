@@ -14,65 +14,58 @@ html,body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#0a3f99,#0050ff);
-  font-family:Arial, Helvetica, sans-serif;
+  background:linear-gradient(135deg,#0a0a0f,#111118);
+  font-family:'Orbitron', sans-serif;
+  color:#fff;
 }
-
 .pay-card{
-  background:#fff;
+  background:#111118;
   width:360px;
   max-width:92%;
   padding:25px 20px;
   border-radius:16px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.3);
+  box-shadow:0 8px 25px rgba(0,255,240,0.3);
   text-align:center;
 }
-
 .logo{
   width:220px;
   margin-bottom:10px;
 }
-
 h2{
   margin:10px 0 5px;
-  color:#0050ff;
+  color:#00fff0;
 }
-
 .sub{
   font-size:13px;
-  color:#333;
+  color:#fff;
   margin-bottom:15px;
+  opacity:0.8;
 }
-
 .amount-box{
-  background:#e6f0ff;
-  border:2px dashed #0050ff;
+  background:#0a0a1a;
+  border:2px dashed #00fff0;
   border-radius:12px;
   padding:15px;
   margin:15px 0;
 }
-
 .amount-box span{
   display:block;
   font-size:14px;
-  color:#333;
+  color:#fff;
 }
-
 .amount{
   font-size:26px;
   font-weight:bold;
-  color:#0050ff;
+  color:#00fff0;
 }
-
 .phone{
   font-size:14px;
   margin-top:6px;
-  color:#333;
+  color:#fff;
 }
-
 .notice{
-  background:#fff3cd;
-  color:#856404;
+  background:#0a0a1a;
+  color:#0ff;
   font-size:12px;
   padding:10px;
   border-radius:10px;
@@ -80,40 +73,36 @@ h2{
   font-weight:bold;
   text-align:left;
 }
-
 .btn{
   width:100%;
   height:45px;
   border:none;
   border-radius:12px;
-  background:#0050ff;
-  color:#fff;
+  background:#00fff0;
+  color:#0a0a0f;
   font-size:15px;
   font-weight:bold;
   cursor:pointer;
+  transition:.3s;
 }
-
 .btn:hover{
-  background:#003bb5;
+  box-shadow:0 0 20px rgba(0,255,240,.6);
 }
-
 .secure{
   margin-top:12px;
   font-size:12px;
-  color:#555;
+  color:#fff;
 }
-
 .secure i{
-  color:#0050ff;
+  color:#00fff0;
   margin-right:5px;
 }
-
 .loading{
   display:none;
   margin-top:10px;
   font-size:13px;
   font-weight:bold;
-  color:#0050ff;
+  color:#00fff0;
 }
 </style>
 </head>
@@ -137,7 +126,7 @@ h2{
     • Referral commission credited instantly
   </div>
 
-  <button class="btn" onclick="processPayment()">
+  <button class="btn" id="paidBtn">
     <i class="fa-solid fa-lock"></i> I Have Paid
   </button>
 
@@ -153,62 +142,49 @@ h2{
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 
-  // 1️⃣ Check if logged in
-  const username = localStorage.getItem("LUMIEARN_LOGGED_IN");
-
-  if(!username){
+  // 1️⃣ Check if user is logged in
+  const loggedIn = localStorage.getItem("LUMIEARN_LOGGED_IN");
+  if(!loggedIn){
+    alert("You must log in first!");
     window.location.href = "login.html";
     return;
   }
 
-  // 2️⃣ Get user data
+  const username = JSON.parse(loggedIn).username;
   const userKey = "LUMIEARN_USER_" + username.toLowerCase();
-  let userData = JSON.parse(localStorage.getItem(userKey));
+  const userData = JSON.parse(localStorage.getItem(userKey));
 
   if(!userData){
     alert("User account not found.");
+    localStorage.removeItem("LUMIEARN_LOGGED_IN");
     window.location.href = "login.html";
     return;
   }
 
-  // 3️⃣ If already paid → go to dashboard
-  if(userData.paid === true){
+  // 2️⃣ If already paid → redirect to dashboard
+  if(userData.paid){
     window.location.href = "dashboard.html";
     return;
   }
 
-  // 4️⃣ Show payment amount + phone
-  const amount = localStorage.getItem("PAYMENT_AMOUNT") || "150";
-  const phone = localStorage.getItem("PAYMENT_PHONE") || "0700000000";
+  // 3️⃣ Display payment amount & phone
+  document.getElementById("activationAmount").textContent = userData.currency + " " + userData.capitalFee;
+  document.getElementById("paymentPhone").textContent = userData.phone;
 
-  document.getElementById("activationAmount").textContent = "KES " + amount;
-
-  const phoneBox = document.getElementById("paymentPhone");
-  if(phoneBox){
-    phoneBox.textContent = phone;
-  }
-
-  // 5️⃣ Fake payment process
-  window.processPayment = function(){
-
-    document.getElementById("loadingText").style.display = "block";
+  // 4️⃣ Handle fake payment
+  document.getElementById("paidBtn").addEventListener("click", function(){
+    const loading = document.getElementById("loadingText");
+    loading.style.display = "block";
 
     setTimeout(function(){
-
       userData.paid = true;
       userData.activatedAt = new Date().toISOString();
-
-      // Save updated user
       localStorage.setItem(userKey, JSON.stringify(userData));
 
-      alert("Payment successful! Redirecting...");
-
-      // Redirect to dashboard
+      alert("Payment successful! Redirecting to dashboard...");
       window.location.href = "dashboard.html";
-
     }, 1500);
-
-  }
+  });
 
 });
 </script>
