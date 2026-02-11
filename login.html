@@ -5,264 +5,189 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login | LUMIEARN</title>
 
-<meta name="description"
-content="Lumiearn | Your one stop solution to the world of financial oportunities. Join our thousands of people making real money online.">
-
-<!-- OPEN GRAPH -->
-<meta property="og:title" content="Create Account | LUMIEARN">
-<meta property="og:description" content="Lumiearn | Your one stop solution to the world of financial oportunities. Join our thousands of people making real money online.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://lumiearn.vercel.app/register.html">
-<meta property="og:image" content="https://lumiearn.vercel.app/logo.png?v=2">
-
-<!-- TWITTER -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Create Account | LUMIEARN">
-<meta name="twitter:description" content="Lumiearn | Your one stop solution to the world of financial oportunities. Join our thousands of people making real money online.">
-<meta name="twitter:image" content="https://lumiearn.vercel.app/logo.png?v=2">
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-html, body{margin:0;padding:0;height:100%;}
-body{
-  font-family:'Orbitron', sans-serif;
-  background:#0a0a0f;
-  color:#fff;
+html,body{
+  margin:0;
+  padding:0;
+  height:100%;
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:20px;
-}
-.login-card{
-  background:#111118;
-  max-width:400px;
-  width:100%;
-  border-radius:16px;
-  padding:34px 30px;
-  box-shadow:0 0 20px rgba(0,255,240,0.25);
+  background:linear-gradient(135deg,#0a3f99,#0050ff);
+  font-family:Arial, Helvetica, sans-serif;
 }
 
-/* ===== LOGO FIX ===== */
-.logo{
+.login-card{
+  background:#fff;
+  width:360px;
+  max-width:92%;
+  padding:25px 20px;
+  border-radius:16px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.3);
   text-align:center;
+}
+
+.logo{
+  width:200px;
+  margin-bottom:10px;
+}
+
+h2{
+  color:#0050ff;
   margin-bottom:15px;
 }
-.logo img{
-  width:350px;
-  height:auto;
-  display:block;
-  margin:0 auto;
+
+.input-box{
+  margin-bottom:15px;
+  text-align:left;
 }
 
-.login-card h1{
-  text-align:center;
-  color:#00fff0;
-  font-size:32px;
-  margin-bottom:12px;
-}
-
-.login-card p{
-  text-align:center;
-  color:#0ff;
-  opacity:.8;
-  margin-bottom:20px;
-}
-
-.form-group{margin-bottom:18px;}
-label{
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:8px;
-  display:block;
-  color:#0ff;
-}
-
-.input-box{position:relative;}
-
-.input-box i.left-icon{
-  position:absolute;
-  top:50%;
-  left:16px;
-  transform:translateY(-50%);
-  font-size:16px;
-  color:#0ff;
-  pointer-events:none;
-}
-
-.input-box .toggle-password{
-  position:absolute;
-  right:16px;
-  top:50%;
-  transform:translateY(-50%);
-  cursor:pointer;
-  font-size:16px;
-  color:#0ff;
+.input-box label{
+  font-size:13px;
+  font-weight:bold;
+  color:#333;
 }
 
 .input-box input{
   width:100%;
-  height:54px;
-  padding-left:44px;
-  padding-right:44px;
-  font-size:15px;
-  border-radius:14px;
-  border:1px solid rgba(0,255,240,.4);
-  background:transparent;
-  color:#fff;
-  box-sizing:border-box;
+  height:40px;
+  padding:0 10px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  margin-top:5px;
+  font-size:14px;
+  outline:none;
 }
 
 .input-box input:focus{
-  outline:none;
-  border-color:#0ff;
-  box-shadow:0 0 12px rgba(0,255,240,.35);
+  border-color:#0050ff;
 }
 
 .btn{
   width:100%;
-  height:54px;
-  font-size:16px;
-  font-weight:700;
+  height:45px;
   border:none;
-  border-radius:16px;
-  background:#00fff0;
-  color:#0a0a0f;
+  border-radius:12px;
+  background:#0050ff;
+  color:#fff;
+  font-size:15px;
+  font-weight:bold;
   cursor:pointer;
-  transition:.3s;
+  margin-top:5px;
 }
 
 .btn:hover{
-  box-shadow:0 0 20px rgba(0,255,240,.6);
+  background:#003bb5;
 }
 
-#alertBox{
-  display:none;
-  margin-top:12px;
-  padding:12px 16px;
-  border-radius:12px;
-  font-size:14px;
-  font-weight:500;
-  text-align:center;
+.register-link{
+  margin-top:15px;
+  font-size:13px;
 }
 
-.login-link{
-  margin-top:20px;
-  text-align:center;
-  font-size:14px;
-}
-
-.login-link a{
-  color:#00fff0;
-  font-weight:700;
+.register-link a{
+  color:#0050ff;
   text-decoration:none;
+  font-weight:bold;
+}
+
+/* Remove white autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #000 !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 </style>
 </head>
-
 <body>
 
 <div class="login-card">
+  <img src="https://lumiearn.vercel.app/logo.png" class="logo" alt="LUMIEARN">
 
-  <!-- LOGO ADDED -->
-  <div class="logo">
-    <img src="https://lumiearn.vercel.app/logo.png" alt="LUMIEARN Logo">
-  </div>
-
-  <h1>LUMIEARN | Login</h1>
-  <p>Enter your credentials to continue</p>
-
-  <div id="alertBox"></div>
+  <h2>Login to Your Account</h2>
 
   <form id="loginForm">
-    <div class="form-group">
-      <label>Username or Email</label>
-      <div class="input-box">
-        <i class="fa-solid fa-user left-icon"></i>
-        <input type="text" id="usernameEmail" placeholder="Username or Email" required>
-      </div>
+
+    <div class="input-box">
+      <label>Username / Email / Phone</label>
+      <input type="text" id="loginInput" required>
     </div>
 
-    <div class="form-group">
+    <div class="input-box">
       <label>Password</label>
-      <div class="input-box">
-        <i class="fa-solid fa-lock left-icon"></i>
-        <input type="password" id="passwordInput" placeholder="Enter password" required>
-        <i class="fa-solid fa-eye toggle-password"></i>
-      </div>
+      <input type="password" id="password" required>
     </div>
 
-    <button class="btn" type="submit">Login</button>
+    <button type="submit" class="btn">
+      <i class="fa-solid fa-right-to-bracket"></i> Login
+    </button>
+
   </form>
 
-  <div class="login-link">
-    Don't have an account? <a href="register.html">Register</a>
+  <div class="register-link">
+    Don’t have an account? <a href="register.html">Register</a>
   </div>
-
 </div>
 
 <script>
-// Password toggle
-document.querySelectorAll(".toggle-password").forEach(icon=>{
-  icon.onclick=()=>{
-    const input = icon.previousElementSibling;
-    input.type = input.type==="password"?"text":"password";
-    icon.classList.toggle("fa-eye-slash");
-  };
-});
+document.addEventListener("DOMContentLoaded", () => {
 
-// Login logic
-const form = document.getElementById("loginForm");
-const userInput = document.getElementById("usernameEmail");
-const passwordInput = document.getElementById("passwordInput");
-const alertBox = document.getElementById("alertBox");
+  const form = document.getElementById("loginForm");
 
-form.addEventListener("submit", e=>{
-  e.preventDefault();
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
 
-  alertBox.style.display="none";
+    const input = document.getElementById("loginInput").value.trim().toLowerCase();
+    const password = document.getElementById("password").value;
 
-  const u = userInput.value.trim().toLowerCase();
-  const p = passwordInput.value;
+    let foundUser = null;
 
-  let foundUser = null;
+    // Search all registered users
+    for(let i = 0; i < localStorage.length; i++){
+      const key = localStorage.key(i);
 
-  for(let i = 0; i < localStorage.length; i++){
-    const key = localStorage.key(i);
-    if(key.startsWith("LUMIEARN_USER_")){
-      const user = JSON.parse(localStorage.getItem(key));
-      if(user.username.toLowerCase()===u || user.email.toLowerCase()===u){
-        foundUser = user;
-        break;
+      if(key.startsWith("LUMIEARN_USER_")){
+        const user = JSON.parse(localStorage.getItem(key));
+
+        if(
+          user.username.toLowerCase() === input ||
+          user.email.toLowerCase() === input ||
+          user.phone === input
+        ){
+          foundUser = user;
+          break;
+        }
       }
     }
-  }
 
-  if(!foundUser){
-    alertBox.style.display="block";
-    alertBox.innerText="User not found";
-    return;
-  }
+    if(!foundUser){
+      alert("User not found. Please register first.");
+      return;
+    }
 
-  if(foundUser.password !== p){
-    alertBox.style.display="block";
-    alertBox.innerText="Incorrect password";
-    return;
-  }
+    if(foundUser.password !== password){
+      alert("Incorrect password.");
+      return;
+    }
 
-  // Save session
-  localStorage.setItem("LOGGED_IN_USER", JSON.stringify({
-    user: foundUser,
-    loginTime: Date.now()
-  }));
+    // Save logged in session
+    localStorage.setItem("LUMIEARN_LOGGED_IN", foundUser.username);
 
-  alertBox.style.display="block";
-  alertBox.innerText="Login successful! Redirecting...";
+    alert("Login successful!");
 
-  setTimeout(()=>{
-    window.location.href="payment.html";
-  },1000);
+    if(foundUser.paid === true){
+      window.location.href = "dashboard.html";
+    } else {
+      window.location.href = "payment.html";
+    }
+
+  });
+
 });
 </script>
 
